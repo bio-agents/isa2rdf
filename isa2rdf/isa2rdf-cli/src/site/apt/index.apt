@@ -1,0 +1,23 @@
+ -----
+ISA-TAB to RDF conversion.
+ -----
+ Background
+ -----
+May 2012
+
+ISA-TAB to Resource Description Framework (RDF) conversion
+~~~~~~~  
+
+   A command line agent and library for {{{http://isa-agents.org}ISA-TAB}} to {{{http://www.w3.org/RDF/}RDF}} conversion.
+   
+   * Use as  {{{./cli.html}command line agent}}.
+  
+   * Use as  {{{./maven.html}Maven dependency}}.
+
+   * Download {{{https://github.com/ToxBank/isa2rdf/zipball/master}https://github.com/ToxBank/isa2rdf/zipball/master}}
+   
+   * Download from the {{{http://ambit.uni-plovdiv.bg:8083/nexus/index.html#nexus-search;quick~isa2rdf}Maven repository}}
+      
+   * View source at  {{{https://github.com/ToxBank/isa2rdf}GitHub}}
+   
+   * {{{./apidocs/index.html}JavaDoc}}

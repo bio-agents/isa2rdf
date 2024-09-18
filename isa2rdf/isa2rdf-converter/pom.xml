@@ -1,0 +1,236 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>isa2rdf</artifactId>
+    <groupId>net.toxbank</groupId>
+    <version>1.0.2-SNAPSHOT</version>
+  </parent>
+  <groupId>net.toxbank</groupId>
+  <artifactId>isa2rdf-converter</artifactId>
+  <version>1.0.2-SNAPSHOT</version>
+  <name>isa2rdf converter</name>
+      <licenses>
+  <license>
+    <name>LGPL3</name>
+    <url>http://www.gnu.org/licenses/lgpl.txt</url>
+    <distribution>repo</distribution>
+    <comments />
+  </license>
+</licenses>
+ <distributionManagement>
+    <snapshotRepository>
+      <id>toxbank-snapshots</id>
+      <url>http://ambit.uni-plovdiv.bg:8083/nexus/content/repositories/toxbank-snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>toxbank-releases</id>
+      <url>http://ambit.uni-plovdiv.bg:8083/nexus/content/repositories/toxbank-releases</url>
+    </repository>
+  </distributionManagement>
+  <repositories>
+   <repository>
+      <id>ambit-plovdiv-releases</id>
+      <url>http://ambit.uni-plovdiv.bg:8083/nexus/content/repositories/releases</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>ambit-plovdiv-snapshots</id>
+      <url>http://ambit.uni-plovdiv.bg:8083/nexus/content/repositories/snapshots</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+<dependencies>
+    <dependency>
+		<groupId>org.apache.jena</groupId>
+		<artifactId>jena-core</artifactId>
+		<version>2.10.1</version>
+    </dependency>
+    <dependency>
+    	<groupId>ambit</groupId>
+    	<artifactId>opentox-client</artifactId>
+    	<version>1.0.4-SNAPSHOT</version>
+    	<type>jar</type>
+    </dependency>
+    <dependency>
+		<groupId>org.apache.jena</groupId>
+		<artifactId>jena-core</artifactId>
+		<version>2.10.1</version>
+		<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    
+	<dependency>
+	<groupId>org.apache.jena</groupId>
+	<artifactId>jena-arq</artifactId>
+	<version>2.10.1</version>
+	<type>jar</type>
+    	<scope>compile</scope>
+</dependency>
+    
+ <dependency>
+        <groupId>net.java.dev.stax-utils</groupId>  
+        <artifactId>stax-utils</artifactId>
+        <version>20070216</version>
+        <exclusions>
+            <exclusion>
+                <groupId>com.bea.xml</groupId>
+                <artifactId>jsr173-ri</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>                
+    <dependency>
+	<groupId>org.codehaus.jackson</groupId>
+	<artifactId>jackson-core-lgpl</artifactId>
+	<version>1.9.12</version>
+	<scope>test</scope>
+</dependency>
+<dependency>
+	<groupId>org.codehaus.jackson</groupId>
+	<artifactId>jackson-mapper-asl</artifactId>
+	<version>${jackson.version}</version>
+</dependency>
+<!--
+    <dependency>
+      <groupId>ambit</groupId>
+      <artifactId>ambit2-base</artifactId>
+      <version>${ambit.version}</version>
+      <type>jar</type>
+    </dependency>
+-->
+</dependencies>  
+<description>ISA-TAB to RDF conversion</description>
+  <organization>
+  	<name>ToxBank project</name>
+  	<url>http://toxbank.net</url>
+  </organization>
+  <scm>
+  	<developerConnection>scm:git:git@github.com:ToxBank/isa2rdf.git</developerConnection>
+  	<url>https://github.com/ToxBank/isa2rdf</url>
+  </scm>  
+<url>http://toxbank.github.com/isa2rdf</url>
+<inceptionYear>2011</inceptionYear>
+<build>
+ <plugins>
+ 
+   	<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+   
+   		<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-2</version>
+				<executions>
+					<execution>
+						<id>create-executable-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>
+								jar-with-dependencies
+								</descriptorRef>
+							</descriptorRefs>
+							<finalName>isa2rdf-${project.version}</finalName>
+        					<appendAssemblyId>false</appendAssemblyId>
+							<archive>
+								<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+   </plugins>
+       <resources>
+	<resource>
+		<directory>src/main/resources</directory>
+		<filtering>true</filtering>
+	</resource>
+
+  </resources>
+  <pluginManagement>
+  <plugins>
+  <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+		        <configuration>
+		          <archive>
+		            <manifest>
+		            	<!--
+		              <mainClass>${mainclass}</mainClass>
+		              <packageName>${project.artifactId}</packageName>
+		              -->
+		              <addClasspath>true</addClasspath>
+		              <!-- 
+		              <addExtensions />
+		              <classpathPrefix />
+		              -->
+		            </manifest>				          	
+		            <manifestEntries>
+		              <mode>development</mode>
+		              <url>${project.url}</url>
+		            </manifestEntries>
+		            <manifestFile>target/classes/META-INF/MANIFEST.MF</manifestFile>
+		          </archive>
+		        </configuration>
+			</plugin>
+						<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+				<skip>true</skip>
+				<disableXmlReport>true</disableXmlReport>
+        		<argLine>-Xmx1024m</argLine>
+				</configuration>
+			</plugin>
+		    </plugins>
+  </pluginManagement>
+</build>
+<reporting>
+    <plugins>
+          <plugin>
+          <!-- UML class diagrams  -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+			<version>2.7</version>            
+             <!-- <docletPath>/path/to/UmlGraph.jar</docletPath> -->
+	        <configuration>
+	          <source>1.5</source>
+	          <aggregate>false</aggregate>
+	          <doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+	          <docletArtifact>
+	            <groupId>gr.spinellis</groupId>
+	            <artifactId>UmlGraph</artifactId>
+	            <version>4.6</version>
+	          </docletArtifact>
+	          <additionalparam>
+	          <!--  http://www.umlgraph.org/doc/cd-opt.html 
+	          	-attributes
+	          	-views
+	          	-types 
+	            -inferrel -inferdep -quiet -hide java.*
+	            -collpackages java.util.* -qualify
+	            -postfixpackage 
+	            --> 
+	            -all
+	          </additionalparam>
+	        </configuration>
+         </plugin>
+    </plugins>
+</reporting>
+</project>
